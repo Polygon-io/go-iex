@@ -61,6 +61,18 @@ func NewPacketDataSource(r io.Reader) (PacketDataSource, error) {
 	return packetSource, err
 }
 
+
+func NewRawPacketDataSource(r io.Reader) (PacketDataSource, error) {
+	input := bufio.NewReader(r)
+	var packetSource PacketDataSource
+	packetSource, err := pcapgo.NewReader(input)
+	if err != nil {
+		return nil, err
+	}
+	return packetSource, err
+}
+
+
 // PcapScanner is a high-level reader for extracting messages from the
 // pcap dumps provided by IEX in the HIST endpoint.
 type PcapScanner struct {
